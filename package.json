@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -57,6 +58,23 @@
       "stylelint-config-standard-scss",
       "stylelint-config-css-modules",
       "stylelint-config-prettier-scss"
+    ]
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   }
 }
