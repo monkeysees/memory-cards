@@ -44,7 +44,6 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
       "airbnb",
       "airbnb-typescript",
       "prettier"
