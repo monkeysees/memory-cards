@@ -1,0 +1,52 @@
+.input {
+  appearance: none;
+  background-color: transparent;
+  font: inherit;
+  color: currentcolor;
+  display: grid;
+  place-content: center;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentcolor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+
+  &::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    background-color: canvastext;
+    box-shadow: inset 1em 1em var(--color-primary);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: transform 120ms ease-in-out;
+  }
+
+  &:checked::before {
+    transform: scale(1);
+  }
+
+  &:focus-visible {
+    outline: max(2px, 0.15em) solid currentcolor;
+    outline-offset: max(1.5px, 0.1em);
+  }
+
+  &:disabled {
+    color: var(--color-disabled);
+    cursor: not-allowed;
+  }
+}
+
+.control {
+  width: max-content;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+  cursor: pointer;
+
+  &--disabled {
+    color: var(--color-disabled);
+    cursor: not-allowed;
+  }
+}

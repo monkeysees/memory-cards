@@ -1,0 +1,22 @@
+.button {
+  padding: 0.8rem 1.6rem;
+  border: 0.2rem solid var(--color-dark);
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: background-color 200ms;
+
+  &:disabled {
+    background-color: var(--color-disabled);
+    cursor: initial;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary);
+  }
+
+  &:focus-visible:not(:disabled) {
+    transition: none;
+    background-color: var(--color-primary);
+    outline: var(--color-dark) solid 0.2rem;
+  }
+}

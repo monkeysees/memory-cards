@@ -1,0 +1,58 @@
+.wrapper {
+  background-color: transparent;
+  width: max-content;
+  padding: 0.25em 0.5em;
+  border: 0.15em solid currentcolor;
+  border-radius: 0.25em;
+  cursor: pointer;
+  display: grid;
+  grid-template-areas: select;
+  align-items: center;
+
+  &::after {
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: currentcolor;
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    grid-area: select;
+    justify-self: end;
+  }
+
+  & select {
+    grid-area: select;
+  }
+
+  &:focus-within {
+    outline: max(2px, 0.15em) solid currentcolor;
+  }
+}
+
+.select {
+  // A reset of styles, including removing the default dropdown arrow
+  appearance: none;
+
+  // Additional resets for further consistency
+  background-color: transparent;
+  width: 100%;
+  padding: 0 1em 0 0;
+  margin: 0;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  outline: none;
+}
+
+.control {
+  display: grid;
+
+  &__disabled {
+    color: var(--color-disabled);
+
+    & .select {
+      cursor: not-allowed;
+    }
+  }
+}

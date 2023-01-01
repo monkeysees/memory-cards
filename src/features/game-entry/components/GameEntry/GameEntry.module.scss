@@ -1,0 +1,31 @@
+.wrapper {
+  display: grid;
+  justify-items: center;
+}
+
+.game {
+  width: 100%;
+  display: grid;
+  row-gap: 1.8rem;
+  justify-items: center;
+}
+
+.pullCard {
+  display: grid;
+  row-gap: 1.2rem;
+  justify-items: center;
+}
+
+.cardsWrapper {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+}
+
+.cardsGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(auto, 10rem));
+  gap: 2rem;
+  justify-items: center;
+}
