@@ -1,7 +1,8 @@
 import Button from "./Button/Button"
-import CardBack from "./Card/CardBack"
-import CardFace from "./Card/CardFace"
+import Card from "./Card/Card"
+import CardsGrid from "./CardsGrid/CardsGrid"
 import Checkbox from "./Checkbox/Checkbox"
 import Select from "./Select/Select"
+import Suit from "./Suit/Suit"
 
-export { Button, CardBack, CardFace, Checkbox, Select }
+export { Button, Card, CardsGrid, Checkbox, Select, Suit }

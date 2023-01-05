@@ -21,11 +21,3 @@
   display: grid;
   justify-items: center;
 }
-
-.cardsGrid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(auto, 10rem));
-  gap: 2rem;
-  justify-items: center;
-}

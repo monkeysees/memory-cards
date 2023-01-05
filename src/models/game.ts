@@ -1,13 +1,17 @@
-import { CardFace } from "./card"
+import { CardFace, Suit } from "./card"
 
 interface Game {
+  cardsBySuit: { [Property in Suit]: CardFace[] }
+  suits: [Suit, Suit, Suit, Suit]
   cards: CardFace[]
-  pulledCards: CardFace[]
+  shuffledCards: CardFace[]
+  pulledCards: { value: CardFace; guess?: CardFace }[]
   settings: {
     isOrdered: boolean
     isSuited: boolean
-    timer: { isEnabled: boolean; time: 0.5 | 1 | 2 | 3 | 5 | 7 | 10 }
+    timer: { isEnabled: boolean; time: 30 | 60 | 120 | 180 | 300 | 420 | 600 } // time is in seconds
   }
+  isStarted: boolean
 }
 
 export default Game

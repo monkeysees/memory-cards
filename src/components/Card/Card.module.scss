@@ -1,3 +1,50 @@
 .card {
-  width: 8rem;
+  &__small {
+    width: 4rem;
+    border-radius: 0.4rem;
+  }
+
+  &__medium {
+    width: 8rem;
+    border-radius: 0.7rem;
+  }
+}
+
+.button {
+  cursor: pointer;
+
+  & .card {
+    transition: transform 150ms ease-in-out;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.36;
+  }
+
+  // double pseudo-class to override specificity of the reset
+  &:focus-visible:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible .card {
+    // use outline instead of border for proper behavior
+    // when card is scaled on hover
+    outline-style: solid;
+    outline-color: black;
+
+    &__small {
+      outline-width: 0.2rem;
+    }
+
+    &__medium {
+      outline-width: 0.3rem;
+    }
+  }
+
+  // if button itself is scaled, then there are issues
+  // with space between card and focus/selection outline
+  &:hover:not(:disabled) .card {
+    transform: scale(1.1);
+  }
 }

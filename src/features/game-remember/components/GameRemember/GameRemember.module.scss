@@ -1,0 +1,27 @@
+.wrapper {
+  display: grid;
+  place-items: center;
+  row-gap: 1.2rem;
+}
+
+.heading {
+  grid-column: 1;
+  grid-row: 1;
+  margin-bottom: 0;
+}
+
+.timer {
+  justify-self: end;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.cardsWrapper {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+}
+
+.cardToGuess {
+  outline: var(--color-primary) solid 0.3rem;
+}

@@ -1,0 +1,78 @@
+.wrapper {
+  position: fixed;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: max-content;
+  max-width: 60rem;
+  padding: 1.2rem;
+  background-color: white;
+  border: 0.3rem solid black;
+  border-radius: 0.8rem;
+}
+
+.closeButton {
+  justify-self: end;
+  background-color: red;
+  color: white;
+  width: 1.5rem;
+  aspect-ratio: 1;
+  margin-bottom: 0.6rem;
+  border-radius: 0.3rem;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+
+  &::after {
+    content: "\00d7"; // this will render as '×', “x”-like symbol
+    font-size: 0.8em;
+  }
+
+  transition: transform 150ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus-visible {
+    outline: black solid 0.3rem;
+  }
+}
+
+.suitButton {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  aspect-ratio: 1;
+  padding: 0.6rem;
+  outline: black solid 0.2rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+
+  // double pseudo-class to override focus styles for selected suit
+  &:focus-visible:focus-visible {
+    outline: black solid 0.3rem;
+  }
+
+  &__selected {
+    --selectedSuit-outline: var(--color-primary) solid 0.2rem;
+
+    outline: var(--selectedSuit-outline);
+
+    &:focus {
+      outline: var(--selectedSuit-outline); // override reset
+    }
+  }
+}
+
+.suits {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(9, auto);
+  gap: 1.2rem;
+}

@@ -1,4 +1,6 @@
-export type CardFace =
+type Suit = "clubs" | "diamonds" | "hearts" | "spades"
+
+type CardFace =
   | "C2"
   | "C3"
   | "C4"
@@ -51,3 +53,7 @@ export type CardFace =
   | "SQ"
   | "SK"
   | "SA"
+
+type Card = CardFace | "back"
+
+export type { Suit, CardFace, Card }

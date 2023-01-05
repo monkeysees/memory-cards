@@ -1,5 +1,6 @@
 import React from "react"
 
+import back from "@/assets/images/cards/back.svg"
 import C2 from "@/assets/images/cards/C2.svg"
 import C3 from "@/assets/images/cards/C3.svg"
 import C4 from "@/assets/images/cards/C4.svg"
@@ -52,10 +53,11 @@ import SJ from "@/assets/images/cards/SJ.svg"
 import SQ from "@/assets/images/cards/SQ.svg"
 import SK from "@/assets/images/cards/SK.svg"
 import SA from "@/assets/images/cards/SA.svg"
-import { CardFace as CardFaceValue } from "@/models/card"
+import { Card as CardType } from "@/models/card"
 import styles from "./Card.module.scss"
 
-const faceToSrc = {
+const cardToSrc = {
+  back,
   C2,
   C3,
   C4,
@@ -110,12 +112,57 @@ const faceToSrc = {
   SA,
 }
 
-interface Props {
-  name: CardFaceValue
+function CardImage({ value, size, classes }: Omit<Props, "clickHandler">) {
+  return (
+    <img
+      src={cardToSrc[value || "back"]}
+      alt={`Card ${value}`}
+      className={`${styles.card} ${styles[`card__${size}`]} ${classes || ""}`}
+    />
+  )
 }
 
-export default function CardFace({ name }: Props) {
-  return (
-    <img src={faceToSrc[name]} alt={`Card ${name}`} className={styles.card} />
+CardImage.defaultProps = {
+  interactive: false,
+}
+
+interface Props {
+  value?: CardType
+  size?: "small" | "medium"
+  clickHandler?: React.MouseEventHandler<HTMLButtonElement>
+  interactiveRef?: React.RefObject<HTMLButtonElement>
+  disabled?: boolean
+  classes?: string
+}
+
+export default function Card({
+  value,
+  size,
+  clickHandler,
+  interactiveRef,
+  disabled,
+  classes,
+}: Props) {
+  return clickHandler ? (
+    <button
+      className={styles.button}
+      type="button"
+      onClick={clickHandler}
+      disabled={disabled}
+      ref={interactiveRef}
+    >
+      <CardImage {...{ value, size, classes }} />
+    </button>
+  ) : (
+    <CardImage {...{ value, size, classes }} />
   )
+}
+
+Card.defaultProps = {
+  value: "back",
+  size: "medium",
+  clickHandler: undefined,
+  interactiveRef: undefined,
+  disabled: false,
+  classes: "",
 }

@@ -1,16 +1,16 @@
-import React from "react"
+import React, { ReactNode } from "react"
 
 import styles from "./Button.module.scss"
 
 interface Props {
-  label?: string
+  children?: ReactNode
   type?: "button" | "submit" | "reset"
   isDisabled?: boolean
   clickHandler?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export default function Button({
-  label,
+  children,
   type,
   isDisabled,
   clickHandler,
@@ -22,13 +22,13 @@ export default function Button({
       className={styles.button}
       disabled={isDisabled}
     >
-      {label}
+      {children}
     </button>
   )
 }
 
 Button.defaultProps = {
-  label: "",
+  children: null,
   type: "button",
   isDisabled: false,
   clickHandler: () => {},

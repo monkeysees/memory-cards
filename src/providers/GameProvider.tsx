@@ -1,13 +1,13 @@
 import React, { createContext, ReactNode, useContext, useReducer } from "react"
 import { cloneDeep, merge } from "lodash"
 
-import { CardFace } from "@/models/card"
+import { CardFace, Suit } from "@/models/card"
 import Game from "@/models/game"
 import { assertUnreachable, DeepPartial } from "@/utils/misc"
 
 interface ShuffleCards {
-  type: "shuffle-cards"
-  cards: CardFace[]
+  type: "new-game"
+  shuffledCards: CardFace[]
 }
 
 interface PullCard {
@@ -20,30 +20,69 @@ interface UpdateSettings {
   settings: DeepPartial<Game["settings"]>
 }
 
-type ReducerAction = ShuffleCards | PullCard | UpdateSettings
+interface StartGame {
+  type: "start-game"
+}
+
+interface GuessCard {
+  type: "guess-card"
+  card: CardFace
+  guess: CardFace
+}
+
+type ReducerAction =
+  | ShuffleCards
+  | PullCard
+  | UpdateSettings
+  | StartGame
+  | GuessCard
 
 function gameReducer(game: Game, action: ReducerAction) {
   const actionType = action.type
   switch (actionType) {
-    case "shuffle-cards": {
-      return { ...game, cards: action.cards }
+    case "new-game": {
+      return { ...game, shuffledCards: action.shuffledCards, pulledCards: [] }
     }
+
     case "pull-card": {
-      return { ...game, pulledCards: [...game.pulledCards, action.card] }
+      return {
+        ...game,
+        pulledCards: [...game.pulledCards, { value: action.card }],
+      }
     }
+
     case "update-settings": {
       return {
         ...game,
         settings: merge(cloneDeep(game.settings), action.settings),
       }
     }
+
+    case "start-game": {
+      return game.pulledCards.length > 0
+        ? {
+            ...game,
+            isStarted: true,
+          }
+        : game
+    }
+
+    case "guess-card": {
+      return {
+        ...game,
+        pulledCards: game.pulledCards.map((c) =>
+          c.value === action.card ? { ...c, guess: action.guess } : c,
+        ),
+      }
+    }
+
     default:
       return assertUnreachable(actionType)
   }
 }
 
-const initialGame: Game = {
-  cards: [
+const cardsBySuit: { [Property in Suit]: CardFace[] } = {
+  clubs: [
     "C2",
     "C3",
     "C4",
@@ -57,6 +96,8 @@ const initialGame: Game = {
     "CQ",
     "CK",
     "CA",
+  ],
+  diamonds: [
     "D2",
     "D3",
     "D4",
@@ -70,6 +111,8 @@ const initialGame: Game = {
     "DQ",
     "DK",
     "DA",
+  ],
+  hearts: [
     "H2",
     "H3",
     "H4",
@@ -83,6 +126,8 @@ const initialGame: Game = {
     "HQ",
     "HK",
     "HA",
+  ],
+  spades: [
     "S2",
     "S3",
     "S4",
@@ -97,15 +142,23 @@ const initialGame: Game = {
     "SK",
     "SA",
   ],
+}
+
+const initialGame: Game = {
+  cardsBySuit,
+  suits: Object.keys(cardsBySuit) as [Suit, Suit, Suit, Suit],
+  cards: Object.values(cardsBySuit).flat(),
+  shuffledCards: [],
   pulledCards: [],
   settings: {
-    isOrdered: false,
+    isOrdered: true,
     isSuited: true,
     timer: {
       isEnabled: false,
-      time: 0.5,
+      time: 30,
     },
   },
+  isStarted: false,
 }
 
 function initializeGame(initialValue = initialGame) {

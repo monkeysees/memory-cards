@@ -1,21 +1,18 @@
 import React, { useCallback, useEffect } from "react"
 import { shuffle } from "lodash"
 
-import { CardFace as CardFaceValue } from "@/models/card"
+import { CardFace } from "@/models/card"
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
-import { CardFace, CardBack, Button } from "@/components"
+import { Card, CardsGrid, Button } from "@/components"
 import GameSettingsForm from "../GameSettingsForm/GameSettingsForm"
 import styles from "./GameEntry.module.scss"
 
-function CardsToRemember({ cards }: { cards: CardFaceValue[] }) {
+function CardsToRemember({ cards }: { cards: CardFace[] }) {
   return (
     <section className={styles.cardsWrapper}>
       <h2>Cards to remember: {cards.length}</h2>
-      <div className={styles.cardsGrid}>
-        {cards.map((card) => (
-          <CardFace name={card} key={card} />
-        ))}
-      </div>
+
+      <CardsGrid cards={cards.map((c) => ({ value: c }))} />
     </section>
   )
 }
@@ -25,19 +22,21 @@ export default function GameEntry() {
   const gameDispatch = useGameDispatch()
 
   useEffect(
-    () => gameDispatch({ type: "shuffle-cards", cards: shuffle(game.cards) }),
+    () =>
+      gameDispatch({ type: "new-game", shuffledCards: shuffle(game.cards) }),
     [],
   )
 
-  const unpulledCards = game.cards.filter(
-    (card) => !game.pulledCards.includes(card),
+  const pulledCardValues = game.pulledCards.map((c) => c.value)
+  const unpulledCards = game.shuffledCards.filter(
+    (card) => !pulledCardValues.includes(card),
   )
 
   const pullCard = useCallback(() => {
     const unpulledCardIdx = Math.floor(Math.random() * unpulledCards.length)
     const pulledCard = unpulledCards[unpulledCardIdx]
     gameDispatch({ type: "pull-card", card: pulledCard })
-  }, [gameDispatch])
+  }, [unpulledCards, gameDispatch])
 
   return (
     <article className={styles.wrapper}>
@@ -45,19 +44,25 @@ export default function GameEntry() {
 
       <div className={styles.game}>
         <div className={styles.pullCard}>
-          <CardBack />
+          <Card />
+
           <Button
-            label="Pull a card"
             isDisabled={game.pulledCards.length === game.cards.length}
             clickHandler={pullCard}
-          />
+          >
+            Pull a card
+          </Button>
         </div>
 
         {game.pulledCards.length > 0 ? (
           <>
-            <CardsToRemember cards={game.pulledCards} />
+            <CardsToRemember cards={pulledCardValues} />
+
             <GameSettingsForm />
-            <Button label="Start the game" />
+
+            <Button clickHandler={() => gameDispatch({ type: "start-game" })}>
+              Start the game
+            </Button>
           </>
         ) : null}
       </div>
