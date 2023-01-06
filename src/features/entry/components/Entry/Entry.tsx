@@ -4,8 +4,8 @@ import { shuffle } from "lodash"
 import { CardFace } from "@/models/card"
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
 import { Card, CardsGrid, Button } from "@/components"
-import GameSettingsForm from "../GameSettingsForm/GameSettingsForm"
-import styles from "./GameEntry.module.scss"
+import EntrySettingsForm from "../EntrySettingsForm/EntrySettingsForm"
+import styles from "./styles.module.scss"
 
 function CardsToRemember({ cards }: { cards: CardFace[] }) {
   return (
@@ -17,7 +17,7 @@ function CardsToRemember({ cards }: { cards: CardFace[] }) {
   )
 }
 
-export default function GameEntry() {
+export default function Entry() {
   const game = useGame()
   const gameDispatch = useGameDispatch()
 
@@ -58,7 +58,7 @@ export default function GameEntry() {
           <>
             <CardsToRemember cards={pulledCardValues} />
 
-            <GameSettingsForm />
+            <EntrySettingsForm />
 
             <Button clickHandler={() => gameDispatch({ type: "start-game" })}>
               Start the game

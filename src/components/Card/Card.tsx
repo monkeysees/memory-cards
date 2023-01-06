@@ -54,7 +54,7 @@ import SQ from "@/assets/images/cards/SQ.svg"
 import SK from "@/assets/images/cards/SK.svg"
 import SA from "@/assets/images/cards/SA.svg"
 import { Card as CardType } from "@/models/card"
-import styles from "./Card.module.scss"
+import styles from "./styles.module.scss"
 
 const cardToSrc = {
   back,

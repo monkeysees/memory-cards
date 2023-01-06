@@ -3,9 +3,9 @@ import React from "react"
 import Game from "@/models/game"
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
 import { Checkbox, Select } from "@/components"
-import styles from "./GameSettingsForm.module.scss"
+import styles from "./styles.module.scss"
 
-export default function GameSettingsForm() {
+export default function EntrySettingsForm() {
   const game = useGame()
   const gameDispatch = useGameDispatch()
 

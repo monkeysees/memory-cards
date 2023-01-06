@@ -1,12 +1,12 @@
 import React from "react"
 
 import { useGame } from "@/providers/GameProvider"
-import { GameEntry, GameRemember } from "@/features"
+import { Entry, Remember } from "@/features"
 
 function App() {
   const game = useGame()
 
-  return game.isStarted ? <GameRemember /> : <GameEntry />
+  return game.isStarted ? <Remember /> : <Entry />
 }
 
 export default App

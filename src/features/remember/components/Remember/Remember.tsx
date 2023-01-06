@@ -6,7 +6,7 @@ import { useGame } from "@/providers/GameProvider"
 import { Button, CardsGrid } from "@/components"
 import CardPicker, { Props as CardPickerProps } from "../CardPicker/CardPicker"
 import Timer from "../Timer/Timer"
-import styles from "./GameRemember.module.scss"
+import styles from "./styles.module.scss"
 
 function CardsToRemember({
   cards,
@@ -40,7 +40,7 @@ function CardsToRemember({
   )
 }
 
-export default function GameRemember() {
+export default function Remember() {
   const game = useGame()
   const [cardPickerOptions, setCardPickerOptions] =
     useState<Omit<CardPickerProps, "onClose">>()

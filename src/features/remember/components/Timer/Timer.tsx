@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useRef, useState } from "react"
 
-import styles from "./Timer.module.scss"
+import styles from "./styles.module.scss"
 
 const TIMEOUT_INTERVAL = 1000 // ms
 

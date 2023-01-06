@@ -1,6 +1,6 @@
 import React from "react"
 
-import styles from "./Select.module.scss"
+import styles from "./styles.module.scss"
 
 interface Props {
   label: string

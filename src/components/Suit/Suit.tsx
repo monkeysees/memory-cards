@@ -6,7 +6,7 @@ import diamonds from "@/assets/images/cards/suit-diamonds.svg"
 import hearts from "@/assets/images/cards/suit-hearts.svg"
 import spades from "@/assets/images/cards/suit-spades.svg"
 import { Suit as SuitType } from "@/models/card"
-import styles from "./Suit.module.scss"
+import styles from "./styles.module.scss"
 
 const nameToSrc = {
   clubs,

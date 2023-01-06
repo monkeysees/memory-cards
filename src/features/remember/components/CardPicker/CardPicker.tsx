@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { CardFace } from "@/models/card"
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
 import { Card, Suit } from "@/components"
-import styles from "./CardPicker.module.scss"
+import styles from "./styles.module.scss"
 
 export interface Props {
   faceToGuess: CardFace

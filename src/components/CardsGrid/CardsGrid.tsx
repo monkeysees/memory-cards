@@ -2,7 +2,7 @@ import React from "react"
 
 import { CardFace } from "@/models/card"
 import Card from "../Card/Card"
-import styles from "./CardsGrid.module.scss"
+import styles from "./styles.module.scss"
 
 // `key` is used to distinguish cards with the same value
 interface Props {
