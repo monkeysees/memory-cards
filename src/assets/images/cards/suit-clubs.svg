@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="8" height="10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <path fill="#000" d="M 3 0 h 2 l 1 1 v 2 l -1 1 h 2 l 1 1 v 2 l -1 1 h -1 l -1 -1 l 1 3 h -4 l 1 -3 l -1 1 h -1 l -1 -1 v -2 l 1 -1 h 2 l -1 -1 v -2 z"></path>
+<svg viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-labelledby="suitClubs-title">
+  <title id="suitClubs-title">Clubs suit</title>
+  <path fill="var(--color-dark)" d="M 3 0 h 2 l 1 1 v 2 l -1 1 h 2 l 1 1 v 2 l -1 1 h -1 l -1 -1 l 1 3 h -4 l 1 -3 l -1 1 h -1 l -1 -1 v -2 l 1 -1 h 2 l -1 -1 v -2 z"></path>
 </svg>

@@ -7,13 +7,13 @@
   max-width: 60rem;
   padding: 1.2rem;
   background-color: white;
-  border: 0.3rem solid black;
+  border: 0.3rem solid var(--color-dark);
   border-radius: 0.8rem;
 }
 
 .closeButton {
   justify-self: end;
-  background-color: red;
+  background-color: var(--color-error);
   color: white;
   width: 1.5rem;
   aspect-ratio: 1;
@@ -35,7 +35,7 @@
   }
 
   &:focus-visible {
-    outline: black solid 0.3rem;
+    outline: var(--color-dark) solid 0.3rem;
   }
 }
 
@@ -45,13 +45,13 @@
   width: 3.2rem;
   aspect-ratio: 1;
   padding: 0.6rem;
-  outline: black solid 0.2rem;
+  outline: var(--color-dark) solid 0.2rem;
   border-radius: 0.4rem;
   cursor: pointer;
 
   // double pseudo-class to override focus styles for selected suit
   &:focus-visible:focus-visible {
-    outline: black solid 0.3rem;
+    outline: var(--color-dark) solid 0.3rem;
   }
 
   &__selected {

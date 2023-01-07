@@ -31,7 +31,7 @@
     // use outline instead of border for proper behavior
     // when card is scaled on hover
     outline-style: solid;
-    outline-color: black;
+    outline-color: var(--color-dark);
 
     &__small {
       outline-width: 0.2rem;
