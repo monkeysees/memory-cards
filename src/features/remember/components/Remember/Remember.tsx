@@ -5,7 +5,6 @@ import Game from "@/models/game"
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
 import { Button, CardsGrid } from "@/components"
 import CardPicker, { Props as CardPickerProps } from "../CardPicker/CardPicker"
-import Timer from "../Timer/Timer"
 import styles from "./styles.module.scss"
 
 function CardsToRemember({
@@ -51,14 +50,6 @@ export default function Remember() {
   return (
     <article className={styles.wrapper}>
       <h1 className={styles.heading}>Remember ’em all</h1>
-
-      {game.settings.timer.isEnabled ? (
-        <Timer
-          direction="down"
-          seconds={game.settings.timer.time}
-          classes={styles.timer}
-        />
-      ) : null}
 
       <CardsToRemember
         cards={game.pulledCards}

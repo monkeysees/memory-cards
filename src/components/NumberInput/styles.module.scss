@@ -1,0 +1,21 @@
+.input {
+  appearance: none;
+  @supports (-webkit-touch-callout: none) {
+    font-size: 16px;
+  }
+
+  padding: 0.25em 0.5em;
+  background-color: #fff;
+  border: 0.2rem solid var(--color-dark);
+  border-radius: 0.4rem;
+  line-height: 1;
+
+  &:focus {
+    outline: var(--color-dark) solid 0.2rem;
+  }
+}
+
+.control {
+  display: grid;
+  row-gap: 0.4rem;
+}

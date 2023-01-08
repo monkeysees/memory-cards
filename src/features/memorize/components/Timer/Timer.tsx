@@ -39,7 +39,7 @@ export default function Timer(props: Props) {
 
   useEffect(() => {
     if (secondsFinal <= 0) {
-      gameDispatch({ type: "end-game" })
+      gameDispatch({ type: "start-guess" })
       return () => {}
     }
 

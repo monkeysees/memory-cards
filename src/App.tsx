@@ -2,7 +2,7 @@ import React from "react"
 
 import { assertUnreachable } from "@/utils/misc"
 import { useGame } from "@/providers/GameProvider"
-import { Entry, Remember, Results } from "@/features"
+import { Entry, Memorize, Remember, Results } from "@/features"
 
 function App() {
   const game = useGame()
@@ -10,6 +10,8 @@ function App() {
   switch (game.stage) {
     case "entry":
       return <Entry />
+    case "memorize":
+      return <Memorize />
     case "remember":
       return <Remember />
     case "results":

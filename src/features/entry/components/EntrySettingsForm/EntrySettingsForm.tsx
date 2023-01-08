@@ -2,7 +2,7 @@ import React from "react"
 
 import Game from "@/models/game"
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
-import { Checkbox, Select } from "@/components"
+import { NumberInput, Checkbox, Select } from "@/components"
 import styles from "./styles.module.scss"
 
 export default function EntrySettingsForm() {
@@ -11,10 +11,24 @@ export default function EntrySettingsForm() {
 
   return (
     <form className={styles.wrapper}>
+      <NumberInput
+        label="How many cards do you wish to draw?"
+        id="input_cards-num"
+        name="cardsNum"
+        value={game.settings.cardsNum}
+        min={1}
+        max={52}
+        changeHandler={(e) =>
+          gameDispatch({
+            type: "update-settings",
+            settings: { cardsNum: Number(e.target.value) },
+          })
+        }
+      />
       <Checkbox
-        label="Suit matters?"
+        label="Enable suits?"
         id="checkbox_suited"
-        name="suited"
+        name="isSuitedGame"
         isChecked={game.settings.isSuited}
         changeHandler={(e) =>
           gameDispatch({
@@ -27,9 +41,9 @@ export default function EntrySettingsForm() {
       />
 
       <Checkbox
-        label="Order matters?"
+        label="Enable order?"
         id="checkbox_ordered"
-        name="ordered"
+        name="isOrderedGame"
         isChecked={game.settings.isOrdered}
         changeHandler={(e) =>
           gameDispatch({

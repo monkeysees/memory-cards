@@ -20,8 +20,12 @@ interface UpdateSettings {
   settings: DeepPartial<Game["settings"]>
 }
 
-interface StartGame {
-  type: "start-game"
+interface StartMemorize {
+  type: "start-memorize"
+}
+
+interface StartGuess {
+  type: "start-guess"
 }
 
 interface GuessCard {
@@ -38,7 +42,8 @@ type ReducerAction =
   | ShuffleCards
   | PullCard
   | UpdateSettings
-  | StartGame
+  | StartMemorize
+  | StartGuess
   | GuessCard
   | EndGame
 
@@ -66,15 +71,29 @@ function gameReducer(game: Game, action: ReducerAction) {
       }
     }
 
-    case "start-game": {
-      return game.pulledCards.length > 0
-        ? {
-            ...game,
-            // hack to satisfy ts compiler,
-            // otherwise it does not consider return type to be `Game`
-            stage: "remember" as "remember",
-          }
-        : game
+    case "start-memorize": {
+      return {
+        ...game,
+        // hack to satisfy ts compiler,
+        // otherwise it does not consider return type to be `Game`
+        stage: "memorize" as "memorize",
+        pulledCards: game.shuffledFaces
+          .slice(0, game.settings.cardsNum)
+          .map((f) => ({
+            value: f,
+            guess: undefined,
+            isCorrectGuess: false,
+          })),
+      }
+    }
+
+    case "start-guess": {
+      return {
+        ...game,
+        // hack to satisfy ts compiler,
+        // otherwise it does not consider return type to be `Game`
+        stage: "remember" as "remember",
+      }
     }
 
     case "guess-card": {
@@ -206,6 +225,7 @@ const initialGame: Game = {
   shuffledFaces: [],
   pulledCards: [],
   settings: {
+    cardsNum: 2,
     isOrdered: true,
     isSuited: true,
     timer: {
