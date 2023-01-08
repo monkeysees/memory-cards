@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext, useReducer } from "react"
-import { cloneDeep, merge } from "lodash"
+import { cloneDeep, merge, shuffle } from "lodash"
 
 import { CardFace, Suit } from "@/models/card"
 import Game from "@/models/game"
@@ -265,4 +265,8 @@ function useGameDispatch() {
   return useContext(GameDispatchContext)
 }
 
-export { useGame, useGameDispatch, GameProvider }
+function startNewGame(game: Game, gameDispatch: React.Dispatch<ReducerAction>) {
+  gameDispatch({ type: "new-game", shuffledFaces: shuffle(game.faces) })
+}
+
+export { useGame, useGameDispatch, GameProvider, startNewGame }
