@@ -7,12 +7,12 @@ import { assertUnreachable, DeepPartial } from "@/utils/misc"
 
 interface ShuffleCards {
   type: "new-game"
-  shuffledCards: CardFace[]
+  shuffledFaces: CardFace[]
 }
 
 interface PullCard {
   type: "pull-card"
-  card: CardFace
+  face: CardFace
 }
 
 interface UpdateSettings {
@@ -30,24 +30,32 @@ interface GuessCard {
   guess: CardFace
 }
 
+interface EndGame {
+  type: "end-game"
+}
+
 type ReducerAction =
   | ShuffleCards
   | PullCard
   | UpdateSettings
   | StartGame
   | GuessCard
+  | EndGame
 
 function gameReducer(game: Game, action: ReducerAction) {
   const actionType = action.type
   switch (actionType) {
     case "new-game": {
-      return { ...game, shuffledCards: action.shuffledCards, pulledCards: [] }
+      return { ...game, shuffledFaces: action.shuffledFaces, pulledCards: [] }
     }
 
     case "pull-card": {
       return {
         ...game,
-        pulledCards: [...game.pulledCards, { value: action.card }],
+        pulledCards: [
+          ...game.pulledCards,
+          { value: action.face, guess: undefined, isCorrectGuess: false },
+        ],
       }
     }
 
@@ -62,7 +70,9 @@ function gameReducer(game: Game, action: ReducerAction) {
       return game.pulledCards.length > 0
         ? {
             ...game,
-            isStarted: true,
+            // hack to satisfy ts compiler,
+            // otherwise it does not consider return type to be `Game`
+            stage: "remember" as "remember",
           }
         : game
     }
@@ -70,9 +80,54 @@ function gameReducer(game: Game, action: ReducerAction) {
     case "guess-card": {
       return {
         ...game,
-        pulledCards: game.pulledCards.map((c) =>
-          c.value === action.card ? { ...c, guess: action.guess } : c,
-        ),
+        pulledCards: game.pulledCards.map((card) => {
+          if (card.value !== action.card) {
+            return card
+          }
+
+          return { ...card, guess: action.guess }
+        }),
+      }
+    }
+
+    case "end-game": {
+      let pulledCards: Game["pulledCards"] = []
+
+      if (game.settings.isOrdered) {
+        pulledCards = game.pulledCards.map((c) => ({
+          ...c,
+          isCorrectGuess: game.settings.isSuited
+            ? c.value === c.guess
+            : c.value.slice(1) === (c.guess || "").slice(1),
+        }))
+      } else {
+        const correctFaces = game.pulledCards.reduce<Set<CardFace>>(
+          (faces, { value }) => {
+            if (game.settings.isSuited) {
+              faces.add(value)
+            } else {
+              game.suits.forEach((s) =>
+                faces.add((s[0].toUpperCase() + value.slice(1)) as CardFace),
+              )
+            }
+
+            return faces
+          },
+          new Set(),
+        )
+
+        pulledCards = game.pulledCards.map((c) => ({
+          ...c,
+          isCorrectGuess: !!c.guess && correctFaces.has(c.guess),
+        }))
+      }
+
+      return {
+        ...game,
+        pulledCards,
+        // hack to satisfy ts compiler,
+        // otherwise it does not consider return type to be `Game`
+        stage: "results" as "results",
       }
     }
 
@@ -147,8 +202,8 @@ const cardsBySuit: { [Property in Suit]: CardFace[] } = {
 const initialGame: Game = {
   cardsBySuit,
   suits: Object.keys(cardsBySuit) as [Suit, Suit, Suit, Suit],
-  cards: Object.values(cardsBySuit).flat(),
-  shuffledCards: [],
+  faces: Object.values(cardsBySuit).flat(),
+  shuffledFaces: [],
   pulledCards: [],
   settings: {
     isOrdered: true,
@@ -158,7 +213,7 @@ const initialGame: Game = {
       time: 30,
     },
   },
-  isStarted: false,
+  stage: "entry",
 }
 
 function initializeGame(initialValue = initialGame) {

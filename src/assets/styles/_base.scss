@@ -1,5 +1,6 @@
 @use "@/assets/styles/reset";
 @use "@/assets/styles/fonts";
+@use "@/assets/styles/utility";
 
 :root {
   --font-default: "VG5000", system-ui, -apple-system, "BlinkMacSystemFont",
@@ -38,12 +39,14 @@ body {
 
 h1 {
   font-size: 4.8rem;
-  margin-bottom: 1.8rem;
 }
 
 h2 {
   font-size: 3.6rem;
-  margin-bottom: 1.2rem;
+}
+
+h3 {
+  font-size: 2.8rem;
 }
 
 #root {

@@ -7,12 +7,12 @@ import { Card, CardsGrid, Button } from "@/components"
 import EntrySettingsForm from "../EntrySettingsForm/EntrySettingsForm"
 import styles from "./styles.module.scss"
 
-function CardsToRemember({ cards }: { cards: CardFace[] }) {
+function CardsToRemember({ faces }: { faces: CardFace[] }) {
   return (
     <section className={styles.cardsWrapper}>
-      <h2>Cards to remember: {cards.length}</h2>
+      <h2>Cards to remember: {faces.length}</h2>
 
-      <CardsGrid cards={cards.map((c) => ({ value: c }))} />
+      <CardsGrid cards={faces.map((f) => ({ value: f }))} />
     </section>
   )
 }
@@ -23,20 +23,20 @@ export default function Entry() {
 
   useEffect(
     () =>
-      gameDispatch({ type: "new-game", shuffledCards: shuffle(game.cards) }),
+      gameDispatch({ type: "new-game", shuffledFaces: shuffle(game.faces) }),
     [],
   )
 
-  const pulledCardValues = game.pulledCards.map((c) => c.value)
-  const unpulledCards = game.shuffledCards.filter(
-    (card) => !pulledCardValues.includes(card),
+  const pulledFaces = game.pulledCards.map((c) => c.value)
+  const unpulledFaces = game.shuffledFaces.filter(
+    (face) => !pulledFaces.includes(face),
   )
 
   const pullCard = useCallback(() => {
-    const unpulledCardIdx = Math.floor(Math.random() * unpulledCards.length)
-    const pulledCard = unpulledCards[unpulledCardIdx]
-    gameDispatch({ type: "pull-card", card: pulledCard })
-  }, [unpulledCards, gameDispatch])
+    const unpulledFaceIdx = Math.floor(Math.random() * unpulledFaces.length)
+    const pulledFace = unpulledFaces[unpulledFaceIdx]
+    gameDispatch({ type: "pull-card", face: pulledFace })
+  }, [unpulledFaces, gameDispatch])
 
   return (
     <article className={styles.wrapper}>
@@ -47,7 +47,7 @@ export default function Entry() {
           <Card />
 
           <Button
-            isDisabled={game.pulledCards.length === game.cards.length}
+            isDisabled={game.pulledCards.length === game.faces.length}
             clickHandler={pullCard}
           >
             Pull a card
@@ -56,7 +56,7 @@ export default function Entry() {
 
         {game.pulledCards.length > 0 ? (
           <>
-            <CardsToRemember cards={pulledCardValues} />
+            <CardsToRemember faces={pulledFaces} />
 
             <EntrySettingsForm />
 

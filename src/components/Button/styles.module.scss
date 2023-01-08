@@ -2,6 +2,9 @@
   padding: 0.8rem 1.6rem;
   border: 0.2rem solid var(--color-dark);
   border-radius: 0.8rem;
+  display: grid;
+  place-content: center;
+  text-align: center;
   cursor: pointer;
   transition: background-color 200ms;
 

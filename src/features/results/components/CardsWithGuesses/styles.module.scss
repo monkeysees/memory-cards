@@ -1,0 +1,37 @@
+.wrapper {
+  display: grid;
+  row-gap: 1.2rem;
+}
+
+.button {
+  width: 12rem;
+  padding: 0.6rem 1.2rem;
+
+  &Long {
+    width: 15rem;
+  }
+}
+
+.cardsGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(auto, 12rem));
+  gap: 2rem;
+  justify-items: center;
+}
+
+.cardWrapper {
+  display: grid;
+  justify-items: center;
+  gap: 1.2rem;
+}
+
+.guess {
+  &Success {
+    outline: var(--color-success) solid 0.5rem;
+  }
+
+  &Error {
+    outline: var(--color-error) solid 0.5rem;
+  }
+}

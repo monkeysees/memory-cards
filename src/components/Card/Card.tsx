@@ -116,7 +116,10 @@ function CardImage({ value, size, classes }: Omit<Props, "clickHandler">) {
   const SVG = cardToSvg[value || "back"]
   return (
     <SVG
-      className={`${styles.card} ${styles[`card__${size}`]} ${classes || ""}`}
+      className={`
+      ${styles.card}
+      ${styles[`card__${size || "medium"}`]}
+      ${classes || ""}`}
       role="img"
     />
   )
@@ -126,7 +129,7 @@ CardImage.defaultProps = {
   interactive: false,
 }
 
-interface Props {
+export interface Props {
   value?: CardType
   size?: "small" | "medium"
   clickHandler?: React.MouseEventHandler<HTMLButtonElement>

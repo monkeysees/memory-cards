@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react"
 
 import { CardFace } from "@/models/card"
 import Game from "@/models/game"
-import { useGame } from "@/providers/GameProvider"
+import { useGame, useGameDispatch } from "@/providers/GameProvider"
 import { Button, CardsGrid } from "@/components"
 import CardPicker, { Props as CardPickerProps } from "../CardPicker/CardPicker"
 import Timer from "../Timer/Timer"
@@ -42,6 +42,8 @@ function CardsToRemember({
 
 export default function Remember() {
   const game = useGame()
+  const gameDispatch = useGameDispatch()
+
   const [cardPickerOptions, setCardPickerOptions] =
     useState<Omit<CardPickerProps, "onClose">>()
   const cardToGuessRef = useRef<HTMLButtonElement>(null)
@@ -84,7 +86,9 @@ export default function Remember() {
         />
       ) : null}
 
-      <Button>Check the cards</Button>
+      <Button clickHandler={() => gameDispatch({ type: "end-game" })}>
+        Check the cards
+      </Button>
     </article>
   )
 }

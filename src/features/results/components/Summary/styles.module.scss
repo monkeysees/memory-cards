@@ -1,0 +1,23 @@
+.wrapper {
+  margin-bottom: 3.2rem;
+}
+
+.guesses {
+  &Wrapper {
+    display: grid;
+    row-gap: 0.8rem;
+  }
+
+  &Heading {
+    margin-bottom: 0.4rem;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    column-gap: 0.8rem;
+    align-items: center;
+
+    & :global(.color-success),
+    :global(.color-error) {
+      font-size: 1.25em;
+    }
+  }
+}

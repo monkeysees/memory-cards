@@ -1,4 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
+import { useGameDispatch } from "@/providers/GameProvider"
 import React, { useEffect, useRef, useState } from "react"
 
 import styles from "./styles.module.scss"
@@ -23,6 +24,7 @@ interface TimerDownProps extends TimerCommonProps {
 type Props = TimerUpProps | TimerDownProps
 
 export default function Timer(props: Props) {
+  const gameDispatch = useGameDispatch()
   const startTs = useRef(Date.now())
   const [timerOptions, setTimerOptions] = useState({
     expectedTs: startTs.current,
@@ -37,6 +39,7 @@ export default function Timer(props: Props) {
 
   useEffect(() => {
     if (secondsFinal <= 0) {
+      gameDispatch({ type: "end-game" })
       return () => {}
     }
 
