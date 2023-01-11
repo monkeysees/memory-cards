@@ -21,7 +21,7 @@ export default function EntrySettingsForm() {
         changeHandler={(e) =>
           gameDispatch({
             type: "update-settings",
-            settings: { cardsNum: Number(e.target.value) },
+            settings: { cardsNum: Number(e.target.value) || 1 },
           })
         }
       />
