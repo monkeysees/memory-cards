@@ -51,7 +51,12 @@ function gameReducer(game: Game, action: ReducerAction) {
   const actionType = action.type
   switch (actionType) {
     case "new-game": {
-      return { ...game, shuffledFaces: action.shuffledFaces, pulledCards: [] }
+      return {
+        ...game,
+        stage: "entry" as "entry",
+        shuffledFaces: action.shuffledFaces,
+        pulledCards: [],
+      }
     }
 
     case "pull-card": {
