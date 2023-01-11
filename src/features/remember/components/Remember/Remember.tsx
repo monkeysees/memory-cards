@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import { CardFace } from "@/models/card"
 import Game from "@/models/game"
@@ -43,9 +43,28 @@ export default function Remember() {
   const game = useGame()
   const gameDispatch = useGameDispatch()
 
-  const [cardPickerOptions, setCardPickerOptions] =
-    useState<Omit<CardPickerProps, "onClose">>()
+  const [cardPickerOptions, setCardPickerOptions] = useState<
+    (Omit<CardPickerProps, "onClose"> & { isShown: true }) | { isShown: false }
+  >({ isShown: false })
   const cardToGuessRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!cardPickerOptions.isShown) {
+      return () => {}
+    }
+
+    const escapeHandler = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") {
+        return
+      }
+
+      setCardPickerOptions({ isShown: false })
+    }
+
+    window.addEventListener("keydown", escapeHandler)
+
+    return () => window.removeEventListener("keydown", escapeHandler)
+  }, [cardPickerOptions.isShown])
 
   return (
     <article className={styles.wrapper}>
@@ -54,7 +73,9 @@ export default function Remember() {
       <CardsToRemember
         cards={game.pulledCards}
         cardToGuess={{
-          face: cardPickerOptions?.faceToGuess,
+          face: cardPickerOptions.isShown
+            ? cardPickerOptions.faceToGuess
+            : undefined,
           ref: cardToGuessRef,
         }}
         cardClickHandler={(e, face) => {
@@ -62,17 +83,18 @@ export default function Remember() {
           setCardPickerOptions({
             faceToGuess: face,
             cardBottomPx: boundingRect.bottom,
+            isShown: true,
           })
         }}
       />
 
-      {cardPickerOptions ? (
+      {cardPickerOptions.isShown ? (
         <CardPicker
           faceToGuess={cardPickerOptions.faceToGuess}
           cardBottomPx={cardPickerOptions.cardBottomPx}
           onClose={() => {
             cardToGuessRef.current?.focus()
-            setCardPickerOptions(undefined)
+            setCardPickerOptions({ isShown: false })
           }}
         />
       ) : null}
