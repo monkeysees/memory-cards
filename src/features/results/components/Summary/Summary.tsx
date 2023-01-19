@@ -4,6 +4,19 @@ import Game from "@/models/game"
 import { CardsGrid } from "@/components"
 import styles from "./styles.module.scss"
 
+function CardsGuesses({ cards }: { cards: Game["pulledCards"] }) {
+  return (
+    <CardsGrid
+      cards={cards.map((c) => ({
+        value: c.guess,
+        key: c.value,
+      }))}
+      size="small"
+      classes={styles.guessesGrid}
+    />
+  )
+}
+
 interface Props {
   correctCards: Game["pulledCards"]
   incorrectCards: Game["pulledCards"]
@@ -21,13 +34,7 @@ export default function Summary({ correctCards, incorrectCards }: Props) {
             <span className="color-success">{correctCards.length}</span>
           </h3>
 
-          <CardsGrid
-            cards={correctCards.map((c) => ({
-              value: c.guess,
-              key: c.value,
-            }))}
-            size="small"
-          />
+          <CardsGuesses cards={correctCards} />
         </section>
 
         <section>
@@ -36,13 +43,7 @@ export default function Summary({ correctCards, incorrectCards }: Props) {
             <span className="color-error">{incorrectCards.length}</span>
           </h3>
 
-          <CardsGrid
-            cards={incorrectCards.map((c) => ({
-              value: c.guess,
-              key: c.value,
-            }))}
-            size="small"
-          />
+          <CardsGuesses cards={incorrectCards} />
         </section>
       </div>
     </section>

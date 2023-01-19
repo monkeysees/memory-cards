@@ -11,11 +11,20 @@ interface Props {
     }
   >
   size?: CardProps["size"]
+  classes?: string
 }
 
-export default function CardsGrid({ cards, size }: Props) {
+export default function CardsGrid({
+  cards,
+  size,
+  classes: gridClasses,
+}: Props) {
   return (
-    <div className={`${styles.grid} ${styles[`grid__${size}`]}`}>
+    <div
+      className={`${styles.grid} ${styles[`grid__${size}`]} ${
+        gridClasses || ""
+      }`}
+    >
       {cards.map(({ value, clickHandler, interactiveRef, classes, key }) => (
         <Card
           {...{ value, size, clickHandler, classes, interactiveRef }}
@@ -26,4 +35,4 @@ export default function CardsGrid({ cards, size }: Props) {
   )
 }
 
-CardsGrid.defaultProps = { size: "medium" }
+CardsGrid.defaultProps = { size: "medium", classes: "" }
