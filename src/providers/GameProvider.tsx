@@ -97,7 +97,7 @@ function gameReducer(game: Game, action: ReducerAction) {
         ...game,
         // hack to satisfy ts compiler,
         // otherwise it does not consider return type to be `Game`
-        stage: "remember" as "remember",
+        stage: "recall" as "recall",
       }
     }
 

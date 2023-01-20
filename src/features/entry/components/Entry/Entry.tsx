@@ -17,7 +17,7 @@ export default function Entry() {
 
   return (
     <article className={styles.wrapper}>
-      <h1>How many can you ’member?</h1>
+      <h1>How many can you memorize?</h1>
 
       <EntrySettingsForm />
 

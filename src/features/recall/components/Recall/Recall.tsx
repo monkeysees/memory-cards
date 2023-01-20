@@ -7,7 +7,7 @@ import { Button, CardsGrid } from "@/components"
 import CardPicker, { Props as CardPickerProps } from "../CardPicker/CardPicker"
 import styles from "./styles.module.scss"
 
-function CardsToRemember({
+function CardsToRecall({
   cards,
   cardToGuess,
   cardClickHandler,
@@ -21,7 +21,7 @@ function CardsToRemember({
 }) {
   return (
     <section className={styles.cardsWrapper}>
-      <h2>Cards to remember: {cards.length}</h2>
+      <h2>Cards to recall: {cards.length}</h2>
 
       <CardsGrid
         cards={cards.map((c) => {
@@ -39,7 +39,7 @@ function CardsToRemember({
   )
 }
 
-export default function Remember() {
+export default function Recall() {
   const game = useGame()
   const gameDispatch = useGameDispatch()
 
@@ -68,9 +68,9 @@ export default function Remember() {
 
   return (
     <article className={styles.wrapper}>
-      <h1 className={styles.heading}>Remember ’em all</h1>
+      <h1 className={styles.heading}>Recall ’em all</h1>
 
-      <CardsToRemember
+      <CardsToRecall
         cards={game.pulledCards}
         cardToGuess={{
           face: cardPickerOptions.isShown

@@ -22,7 +22,7 @@ export default function Remember() {
 
   return (
     <article className={styles.wrapper}>
-      <h1 className={styles.heading}>Remember ’em all</h1>
+      <h1 className={styles.heading}>Memorize ’em all</h1>
 
       {game.settings.timer.isEnabled ? (
         <Timer

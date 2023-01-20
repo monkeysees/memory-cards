@@ -12,7 +12,7 @@ export default function EntrySettingsForm() {
   return (
     <form className={styles.wrapper}>
       <NumberInput
-        label="How many cards do you wish to draw?"
+        label="Number of cards to draw"
         id="input_cards-num"
         name="cardsNum"
         value={game.settings.cardsNum}

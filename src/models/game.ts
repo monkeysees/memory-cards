@@ -16,7 +16,7 @@ interface Game {
     isSuited: boolean
     timer: { isEnabled: boolean; time: 30 | 60 | 120 | 180 | 300 | 420 | 600 } // time is in seconds
   }
-  stage: "entry" | "memorize" | "remember" | "results"
+  stage: "entry" | "memorize" | "recall" | "results"
 }
 
 export default Game
