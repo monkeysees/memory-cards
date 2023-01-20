@@ -1,13 +1,12 @@
 .wrapper {
   display: grid;
   place-items: center;
-  row-gap: 1.2rem;
+  row-gap: 2.4rem;
 }
 
 .heading {
   grid-column: 1;
   grid-row: 1;
-  margin-bottom: 0;
 }
 
 .timer {
@@ -20,4 +19,5 @@
   width: 100%;
   display: grid;
   justify-items: center;
+  row-gap: 1.2rem;
 }

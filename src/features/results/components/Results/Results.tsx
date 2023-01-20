@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components"
 import Summary from "../Summary/Summary"
 import CardsWithGuesses from "../CardsWithGuesses/CardsWithGuesses"
+import styles from "./styles.module.scss"
 
 export default function Results() {
   const game = useGame()
@@ -20,14 +21,28 @@ export default function Results() {
   )
 
   return (
-    <article>
-      <h1>Here come results</h1>
+    <article className={styles.wrapper}>
+      <h1 className={styles.heading}>Here come results</h1>
 
-      <Summary correctCards={correctCards} incorrectCards={incorrectCards} />
+      <Summary
+        correctCards={correctCards}
+        incorrectCards={incorrectCards}
+        classes={
+          incorrectCards.length
+            ? styles.summary_mbLarge
+            : styles.summary_mbSmall
+        }
+      />
 
-      <CardsWithGuesses cards={game.pulledCards} />
+      <CardsWithGuesses
+        cards={game.pulledCards}
+        classes={styles.cardsWithGuesses}
+      />
 
-      <Button clickHandler={() => startNewGame(game, gameDispatch)}>
+      <Button
+        classes={styles.button}
+        clickHandler={() => startNewGame(game, gameDispatch)}
+      >
         New game
       </Button>
     </article>

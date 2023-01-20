@@ -1,0 +1,19 @@
+// 400px
+$tiny-screen-width: 25em;
+
+// 600px
+$small-screen-width: 37.5em;
+
+@mixin respond-to-screen($size) {
+  @if $size == tiny {
+    @media only screen and (max-width: $tiny-screen-width) {
+      @content;
+    }
+  }
+
+  @if $size == small {
+    @media only screen and (max-width: $small-screen-width) {
+      @content;
+    }
+  }
+}

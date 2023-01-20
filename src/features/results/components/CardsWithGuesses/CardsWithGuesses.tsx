@@ -32,18 +32,19 @@ function CardWrapper({
 
 interface Props {
   cards: Game["pulledCards"]
+  classes?: string
 }
 
-export default function CardsWithGuesses({ cards }: Props) {
+export default function CardsWithGuesses({ cards, classes }: Props) {
   const [showAllGuesses, setShowAllGuesses] = useState(true)
 
   return (
-    <section className={styles.wrapper}>
+    <section className={`${styles.wrapper} ${classes || ""}`}>
       <h2 className={styles.heading}>Results by card</h2>
 
       <Button
         clickHandler={() => setShowAllGuesses(!showAllGuesses)}
-        classes={`${styles.button} ${styles.buttonLong}`}
+        classes={`${styles.button} ${styles.buttonLong} ${styles.buttonShowAll}`}
       >
         Show {showAllGuesses ? "all correct" : "all guesses"}
       </Button>
@@ -56,3 +57,5 @@ export default function CardsWithGuesses({ cards }: Props) {
     </section>
   )
 }
+
+CardsWithGuesses.defaultProps = { classes: "" }

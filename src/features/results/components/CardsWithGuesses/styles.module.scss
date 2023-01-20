@@ -1,7 +1,13 @@
+@use "@/assets/styles/mixins";
+
 .wrapper {
   display: grid;
   row-gap: 1.2rem;
-  margin-bottom: 3.6rem;
+
+  @include mixins.respond-to-screen(small) {
+    grid-template-columns: 100%;
+    justify-items: center;
+  }
 }
 
 .button {
@@ -11,14 +17,24 @@
   &Long {
     width: 18rem;
   }
+
+  &ShowAll {
+    margin-bottom: 1.2rem;
+  }
 }
 
 .cardsGrid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(auto, 15rem));
-  gap: 4.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(auto, 15rem));
+  column-gap: 4.8rem;
+  row-gap: 3.2rem;
   justify-items: center;
+
+  @include mixins.respond-to-screen(small) {
+    justify-items: center;
+    justify-content: center;
+  }
 }
 
 .cardWrapper {

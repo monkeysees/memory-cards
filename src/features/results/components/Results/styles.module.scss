@@ -1,0 +1,27 @@
+@use "@/assets/styles/mixins";
+
+.heading {
+  margin-bottom: 0.6rem;
+}
+
+.summary_mb {
+  &Small {
+    margin-bottom: 1.6rem;
+  }
+
+  &Large {
+    margin-bottom: 2.4rem;
+  }
+}
+
+.cardsWithGuesses {
+  margin-bottom: 4.2rem;
+}
+
+.button {
+  background-color: var(--color-secondary);
+
+  @include mixins.respond-to-screen(small) {
+    margin: 0 auto;
+  }
+}

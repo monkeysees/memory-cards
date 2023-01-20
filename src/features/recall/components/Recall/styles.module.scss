@@ -1,17 +1,14 @@
 .wrapper {
   display: grid;
   place-items: center;
-  row-gap: 1.2rem;
-}
-
-.heading {
-  margin-bottom: 0;
+  row-gap: 2.4rem;
 }
 
 .cardsWrapper {
   width: 100%;
   display: grid;
   justify-items: center;
+  row-gap: 1.2rem;
 }
 
 .cardToGuess {

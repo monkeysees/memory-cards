@@ -1,26 +1,7 @@
 @use "@/assets/styles/reset";
 @use "@/assets/styles/fonts";
 @use "@/assets/styles/utility";
-
-// 400px
-$tiny-screen-width: 25em;
-
-// 600px
-$small-screen-width: 37.5em;
-
-@mixin respond-to-screen($size) {
-  @if $size == tiny {
-    @media only screen and (max-width: $tiny-screen-width) {
-      @content;
-    }
-  }
-
-  @if $size == small {
-    @media only screen and (max-width: $small-screen-width) {
-      @content;
-    }
-  }
-}
+@use "@/assets/styles/mixins";
 
 :root {
   --font-default: "VG5000", system-ui, -apple-system, "BlinkMacSystemFont",
@@ -45,7 +26,7 @@ html {
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
     env(safe-area-inset-bottom) env(safe-area-inset-left);
 
-  @include respond-to-screen(tiny) {
+  @include mixins.respond-to-screen(tiny) {
     font-size: 56.25%;
   }
 }
@@ -76,11 +57,11 @@ h3 {
 #root {
   padding: 4rem 10rem;
 
-  @include respond-to-screen(small) {
+  @include mixins.respond-to-screen(small) {
     padding: 3rem 5rem;
   }
 
-  @include respond-to-screen(tiny) {
+  @include mixins.respond-to-screen(tiny) {
     padding: 1.5rem 2rem 3rem;
   }
 }
