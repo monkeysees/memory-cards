@@ -9,8 +9,13 @@ export default function EntrySettingsForm() {
   const game = useGame()
   const gameDispatch = useGameDispatch()
 
+  function handleSubmission(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    gameDispatch({ type: "start-memorize" })
+  }
+
   return (
-    <form className={styles.wrapper}>
+    <form className={styles.wrapper} onSubmit={handleSubmission}>
       <NumberInput
         label="Number of cards to draw"
         id="input_cards-num"
