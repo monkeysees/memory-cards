@@ -1,4 +1,0 @@
-Font used is VG5000: https://velvetyne.fr/fonts/vg5000/
-Favicon: https://feathericons.com/
-Checkboxes: https://moderncss.dev/pure-css-custom-checkbox-style/
-Selects: https://moderncss.dev/custom-select-styles-with-pure-css/
