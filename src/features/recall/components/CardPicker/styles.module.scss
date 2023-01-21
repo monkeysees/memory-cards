@@ -1,5 +1,7 @@
+@use "@/assets/styles/mixins";
+
 .wrapper {
-  position: fixed;
+  position: absolute;
   display: grid;
   place-content: center;
   justify-items: center;
@@ -75,4 +77,8 @@
   display: grid;
   grid-template-columns: repeat(9, auto);
   gap: 1.2rem;
+
+  @include mixins.respond-to-screen(small) {
+    grid-template-columns: repeat(5, auto);
+  }
 }

@@ -39,7 +39,10 @@ export default function CardPicker({
   return (
     <section
       className={styles.wrapper}
-      style={{ top: `calc(${cardBottomPx}px + 1.2rem)` }}
+      style={{
+        top: `
+        calc(${document.documentElement.scrollTop + cardBottomPx}px + 1.25rem)`,
+      }}
     >
       <button
         className={styles.closeButton}
