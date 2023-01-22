@@ -32,7 +32,9 @@ npm run preview
 
 Font used is [VG5000](https://velvetyne.fr/fonts/vg5000/) by [Justin Bihan](https://velvetyne.fr/authors/justin-bihan/).
 
-Favicon: https://feathericons.com/
+Card assets: https://pl.wikipedia.org/wiki/Wikipedysta:ToasterCoder/Pasjans
+
+Favicon: https://feathericons.com
 
 Form controls are based on:
 - https://moderncss.dev/custom-css-styles-for-form-inputs-and-textareas/
