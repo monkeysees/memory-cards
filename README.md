@@ -1,4 +1,34 @@
-Project-related instruction (e.g. how to preview the site) are in `package.json`.
+Check it out here: https://memory-cards.islambeg.me.
+
+
+
+# Dev instructions
+
+Install the dependencies:
+
+``` shell
+npm install
+```
+
+If you want to start the dev server:
+
+``` shell
+npm run dev
+```
+
+If you want to build it for production:
+
+``` shell
+npm run build
+```
+
+If you want to preview a build:
+
+``` shell
+npm run preview
+```
+
+# Credits
 
 Font used is [VG5000](https://velvetyne.fr/fonts/vg5000/) by [Justin Bihan](https://velvetyne.fr/authors/justin-bihan/).
 
