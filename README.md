@@ -1,7 +1,3 @@
-<!-- Check it out here: https://memory-cards.islambeg.me -->
-
-
-
 # Dev instructions
 
 Install the dependencies:
