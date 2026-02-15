@@ -40,7 +40,9 @@ test("startNewGame dispatches a shuffled full deck action", () => {
   assert.equal(actions[0].type, "new-game")
   assert.equal(actions[0].shuffledFaces.length, initialGame.faces.length)
   assert.equal(new Set(actions[0].shuffledFaces).size, initialGame.faces.length)
-  assert.ok(actions[0].shuffledFaces.every((face) => initialGame.faces.includes(face)))
+  assert.ok(
+    actions[0].shuffledFaces.every((face) => initialGame.faces.includes(face)),
+  )
 })
 
 test("startNewGame is a no-op when entry already has a shuffled deck", () => {
@@ -76,6 +78,27 @@ test("update-settings deep-merges nested settings", () => {
   assert.equal(next.settings.timer.isEnabled, true)
   assert.equal(next.settings.timer.time, 30)
   assert.equal(game.settings.timer.isEnabled, false)
+})
+
+test("update-settings clamps cardsNum to an integer in the valid 1..52 range", () => {
+  const game = createGame()
+
+  const lessThanMinimum = gameReducer(game, {
+    type: "update-settings",
+    settings: { cardsNum: -10 },
+  })
+  const aboveMaximum = gameReducer(game, {
+    type: "update-settings",
+    settings: { cardsNum: 500 },
+  })
+  const decimalInput = gameReducer(game, {
+    type: "update-settings",
+    settings: { cardsNum: 7.9 },
+  })
+
+  assert.equal(lessThanMinimum.settings.cardsNum, 1)
+  assert.equal(aboveMaximum.settings.cardsNum, 52)
+  assert.equal(decimalInput.settings.cardsNum, 7)
 })
 
 test("pull-card appends a revealed card with default guess metadata", () => {

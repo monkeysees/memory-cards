@@ -49,6 +49,16 @@ type ReducerAction =
   | GuessCard
   | EndGame
 
+function clampCardsNum(value: unknown) {
+  const parsedValue = Math.trunc(Number(value))
+
+  if (!Number.isFinite(parsedValue) || parsedValue < 1) {
+    return 1
+  }
+
+  return Math.min(52, parsedValue)
+}
+
 function gameReducer(game: Game, action: ReducerAction) {
   const actionType = action.type
   switch (actionType) {
@@ -72,9 +82,14 @@ function gameReducer(game: Game, action: ReducerAction) {
     }
 
     case "update-settings": {
+      const nextSettings = merge(cloneDeep(game.settings), action.settings)
+
       return {
         ...game,
-        settings: merge(cloneDeep(game.settings), action.settings),
+        settings: {
+          ...nextSettings,
+          cardsNum: clampCardsNum(nextSettings.cardsNum),
+        },
       }
     }
 

@@ -1,7 +1,8 @@
 import Game from "@/models/game"
 
 function normalizeCardsNum(value: string) {
-  return Number(value) || 1
+  const parsedValue = Number(value) || 1
+  return Math.max(1, Math.min(52, parsedValue))
 }
 
 function normalizeTimerTime(value: string) {

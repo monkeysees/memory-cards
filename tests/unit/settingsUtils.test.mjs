@@ -18,6 +18,12 @@ test("normalizeCardsNum falls back to 1 for empty or zero-like input", () => {
   assert.equal(normalizeCardsNum("not-a-number"), 1)
 })
 
+test("normalizeCardsNum clamps out-of-range values to 1..52", () => {
+  assert.equal(normalizeCardsNum("-10"), 1)
+  assert.equal(normalizeCardsNum("53"), 52)
+  assert.equal(normalizeCardsNum("500"), 52)
+})
+
 test("normalizeTimerTime keeps known timer presets as numbers", () => {
   assert.equal(normalizeTimerTime("30"), 30)
   assert.equal(normalizeTimerTime("60"), 60)
