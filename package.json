@@ -11,8 +11,11 @@
     "test:unit": "rimraf .tmp-test && tsc -p tsconfig.test.json && node --import ./tests/register-alias-loader.mjs --experimental-specifier-resolution=node --test 'tests/unit/**/*.test.mjs'",
     "test:unit:coverage": "rimraf .tmp-test && tsc -p tsconfig.test.json && node --import ./tests/register-alias-loader.mjs --experimental-specifier-resolution=node --experimental-test-coverage --test 'tests/unit/**/*.test.mjs'",
     "lint": "eslint --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore --cache",
+    "lint:check": "eslint src --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "stylelint": "stylelint --fix --ignore-path .gitignore --cache",
+    "stylelint:check": "stylelint \"src/**/*.{css,scss}\" --allow-empty-input --ignore-path .gitignore",
     "prettify": "prettier --write --ignore-path .gitignore --plugin-search-dir=.",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,css,scss,json,html}\" \"tests/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}\" .github/workflows/ci.yml package.json --ignore-path .gitignore --plugin-search-dir=.",
     "git-hookify": "husky install && husky add .husky/pre-commit 'npx lint-staged' && git add .husky/pre-commit"
   },
   "dependencies": {
@@ -58,6 +61,12 @@
     ],
     "rules": {
       "react/button-has-type": [
+        "off"
+      ],
+      "import/extensions": [
+        "off"
+      ],
+      "jsx-a11y/no-noninteractive-element-interactions": [
         "off"
       ]
     },

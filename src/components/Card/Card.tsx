@@ -18,9 +18,10 @@ const cardToSvgMarkup = Object.entries(cardMarkupModules).reduce<
   }
 
   const face = fileName.replace(".svg", "") as CardType
-  cards[face] = markup
-
-  return cards
+  return {
+    ...cards,
+    [face]: markup,
+  }
 }, {})
 
 interface CardImageProps {

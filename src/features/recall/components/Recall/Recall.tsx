@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
 
+import { useGame, useGameDispatch } from "@/providers/GameProvider"
 import { CardFace } from "@/models/card"
 import Game from "@/models/game"
-import { useGame, useGameDispatch } from "@/providers/GameProvider"
 import { Button, CardsGrid } from "@/components"
 import CardPicker, { Props as CardPickerProps } from "../CardPicker/CardPicker"
 import styles from "./styles.module.scss"

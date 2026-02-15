@@ -1,7 +1,7 @@
 import React from "react"
 
-import Game from "@/models/game"
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
+import Game from "@/models/game"
 import { Button, CardsGrid } from "@/components"
 import Timer from "../Timer/Timer"
 import styles from "./styles.module.scss"

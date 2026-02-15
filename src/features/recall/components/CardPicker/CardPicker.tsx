@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from "react"
 
-import { CardFace } from "@/models/card"
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
+import { CardFace } from "@/models/card"
 import { Card, Suit } from "@/components"
 import { cardFaceToAccessibleText } from "@/components/Card/cardA11y"
-import {
-  cardPickerDialogA11yProps,
-  getFocusTrapTarget,
-} from "./cardPickerA11y"
+import { cardPickerDialogA11yProps, getFocusTrapTarget } from "./cardPickerA11y"
 import styles from "./styles.module.scss"
 
 export interface Props {
@@ -38,7 +35,7 @@ export default function CardPicker({
 
     const focusableElements = Array.from(
       wrapperRef.current?.querySelectorAll<HTMLButtonElement>(
-        'button:not([disabled])',
+        "button:not([disabled])",
       ) || [],
     )
 
@@ -46,11 +43,11 @@ export default function CardPicker({
       return
     }
 
-    const activeElement = document.activeElement
+    const { activeElement } = document
 
     if (
-      !activeElement
-      || !focusableElements.includes(activeElement as HTMLButtonElement)
+      !activeElement ||
+      !focusableElements.includes(activeElement as HTMLButtonElement)
     ) {
       event.preventDefault()
       const defaultFocusElement = event.shiftKey
@@ -97,7 +94,11 @@ export default function CardPicker({
       onKeyDown={trapTabFocus}
       style={{
         top: `
-        calc(${(typeof document !== "undefined" ? document.documentElement.scrollTop : 0) + cardBottomPx}px + 1.25rem)`,
+        calc(${
+          (typeof document !== "undefined"
+            ? document.documentElement.scrollTop
+            : 0) + cardBottomPx
+        }px + 1.25rem)`,
       }}
     >
       <button

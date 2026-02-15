@@ -1,7 +1,7 @@
 import React from "react"
 
-import { assertUnreachable } from "@/utils/misc"
 import { useGame } from "@/providers/GameProvider"
+import { assertUnreachable } from "@/utils/misc"
 import { Entry, Memorize, Recall, Results } from "@/features"
 
 function App() {
