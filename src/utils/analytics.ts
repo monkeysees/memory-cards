@@ -1,6 +1,7 @@
 import Game from "@/models/game"
 
 type AnalyticsEventData = Record<string, string | number | boolean | null>
+const EVENT_NAMESPACE = "memory-cards"
 
 interface UmamiClient {
   track: (eventName: string, eventData?: AnalyticsEventData) => void
@@ -15,7 +16,7 @@ function getUmamiClient() {
 }
 
 function trackEvent(eventName: string, eventData?: AnalyticsEventData) {
-  getUmamiClient()?.track(eventName, eventData)
+  getUmamiClient()?.track(`${EVENT_NAMESPACE}:${eventName}`, eventData)
 }
 
 function trackGameStarted({
