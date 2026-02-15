@@ -55,6 +55,7 @@ import { ReactComponent as SK } from "@/assets/images/cards/SK.svg"
 import { ReactComponent as SA } from "@/assets/images/cards/SA.svg"
 import { Card as CardType } from "@/models/card"
 import styles from "./styles.module.scss"
+import { getCardAriaLabel } from "./cardA11y"
 
 const cardToSvg = {
   back,
@@ -136,6 +137,7 @@ export interface Props {
   interactiveRef?: React.RefObject<HTMLButtonElement>
   disabled?: boolean
   classes?: string
+  ariaLabel?: string
 }
 
 export default function Card({
@@ -145,6 +147,7 @@ export default function Card({
   interactiveRef,
   disabled,
   classes,
+  ariaLabel,
 }: Props) {
   return clickHandler ? (
     <button
@@ -153,6 +156,7 @@ export default function Card({
       onClick={clickHandler}
       disabled={disabled}
       ref={interactiveRef}
+      aria-label={ariaLabel || getCardAriaLabel(value)}
     >
       <CardImage {...{ value, size, classes }} />
     </button>
@@ -168,4 +172,5 @@ Card.defaultProps = {
   interactiveRef: undefined,
   disabled: false,
   classes: "",
+  ariaLabel: undefined,
 }
