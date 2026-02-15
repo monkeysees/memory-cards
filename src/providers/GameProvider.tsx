@@ -1,9 +1,11 @@
 import React, { createContext, ReactNode, useContext, useReducer } from "react"
-import { cloneDeep, merge, shuffle } from "lodash"
+import lodash from "lodash"
 
 import { CardFace, Suit } from "@/models/card"
 import Game from "@/models/game"
 import { assertUnreachable, DeepPartial } from "@/utils/misc"
+
+const { cloneDeep, merge, shuffle } = lodash
 
 interface ShuffleCards {
   type: "new-game"
@@ -275,3 +277,4 @@ function startNewGame(game: Game, gameDispatch: React.Dispatch<ReducerAction>) {
 }
 
 export { useGame, useGameDispatch, GameProvider, startNewGame }
+export { gameReducer, initialGame }
