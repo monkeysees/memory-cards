@@ -24,6 +24,19 @@ If you want to preview a build:
 npm run preview
 ```
 
+# Analytics (Umami)
+
+This app uses [Umami Cloud](https://cloud.umami.is/) for lightweight, privacy-focused analytics.
+
+- Website script: `https://cloud.umami.is/script.js`
+- Website ID: `a186d7bd-e0b7-40c2-9c6c-c6a46fa78d38`
+- Tracked custom events (namespaced):
+  - `memory-cards:game_started`
+  - `memory-cards:recall_started`
+  - `memory-cards:game_completed`
+
+No high-frequency interaction events are tracked.
+
 # Credits
 
 Font used is [VG5000](https://velvetyne.fr/fonts/vg5000/) by [Justin Bihan](https://velvetyne.fr/authors/justin-bihan/).
