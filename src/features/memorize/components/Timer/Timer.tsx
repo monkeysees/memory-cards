@@ -2,13 +2,14 @@
 import { useGameDispatch } from "@/providers/GameProvider"
 import React, { useEffect, useRef, useState } from "react"
 
+import {
+  TIMEOUT_INTERVAL,
+  formatSeconds,
+  getNextExpectedTs,
+  getSecondsPassed,
+  getTimeoutDelay,
+} from "./timer.utils"
 import styles from "./styles.module.scss"
-
-const TIMEOUT_INTERVAL = 1000 // ms
-
-function getSecondsPassed(startTs: number) {
-  return Math.floor((Date.now() - startTs) / 1000)
-}
 
 interface TimerCommonProps {
   classes?: string
@@ -34,8 +35,8 @@ export default function Timer(props: Props) {
     props.direction === "down"
       ? props.seconds - timerOptions.secondsPassed
       : timerOptions.secondsPassed
-  const minutesToRender = String(Math.floor(secondsFinal / 60)).padStart(2, "0")
-  const secondsToRender = String(Math.floor(secondsFinal % 60)).padStart(2, "0")
+  const { minutes: minutesToRender, seconds: secondsToRender } =
+    formatSeconds(secondsFinal)
 
   useEffect(() => {
     if (secondsFinal <= 0) {
@@ -44,31 +45,21 @@ export default function Timer(props: Props) {
     }
 
     const currentTs = Date.now()
-    const drift = currentTs - timerOptions.expectedTs // timer drift
-    // if `drift` is greater than `TIMEOUT_INTERVAL`,
-    // something went wrong with the timer and its `expectedTs`
-    // so we stop calculating `expectedTs` and consider `currentTs` as expected
-    const timeout =
-      drift < TIMEOUT_INTERVAL
-        ? window.setTimeout(
-            () =>
-              setTimerOptions({
-                expectedTs: timerOptions.expectedTs + TIMEOUT_INTERVAL,
-                secondsPassed: getSecondsPassed(startTs.current),
-              }),
-            TIMEOUT_INTERVAL - drift,
-          )
-        : window.setTimeout(
-            () =>
-              setTimerOptions({
-                expectedTs: currentTs + TIMEOUT_INTERVAL,
-                secondsPassed: getSecondsPassed(startTs.current),
-              }),
+    const timeout = window.setTimeout(
+      () =>
+        setTimerOptions({
+          expectedTs: getNextExpectedTs(
+            timerOptions.expectedTs,
+            currentTs,
             TIMEOUT_INTERVAL,
-          )
+          ),
+          secondsPassed: getSecondsPassed(startTs.current),
+        }),
+      getTimeoutDelay(timerOptions.expectedTs, currentTs, TIMEOUT_INTERVAL),
+    )
 
     return () => clearTimeout(timeout)
-  }, [timerOptions])
+  }, [gameDispatch, secondsFinal, timerOptions])
 
   return (
     <p className={`${styles.timer} ${props.classes || ""}`}>

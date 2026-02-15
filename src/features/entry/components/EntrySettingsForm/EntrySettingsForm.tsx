@@ -1,8 +1,8 @@
 import React from "react"
 
-import Game from "@/models/game"
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
 import { NumberInput, Checkbox, Select } from "@/components"
+import { normalizeCardsNum, normalizeTimerTime } from "./settings.utils"
 import styles from "./styles.module.scss"
 
 export default function EntrySettingsForm() {
@@ -26,7 +26,7 @@ export default function EntrySettingsForm() {
         changeHandler={(e) =>
           gameDispatch({
             type: "update-settings",
-            settings: { cardsNum: Number(e.target.value) || 1 },
+            settings: { cardsNum: normalizeCardsNum(e.target.value) },
           })
         }
       />
@@ -96,9 +96,7 @@ export default function EntrySettingsForm() {
               type: "update-settings",
               settings: {
                 timer: {
-                  time: Number(
-                    e.target.value,
-                  ) as Game["settings"]["timer"]["time"],
+                  time: normalizeTimerTime(e.target.value),
                 },
               },
             })
