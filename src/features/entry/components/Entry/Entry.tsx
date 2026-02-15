@@ -5,6 +5,7 @@ import {
   useGameDispatch,
   startNewGame,
 } from "@/providers/GameProvider"
+import { trackGameStarted } from "@/utils/analytics"
 import { Button } from "@/components"
 import EntrySettingsForm from "../EntrySettingsForm/EntrySettingsForm"
 import styles from "./styles.module.scss"
@@ -21,7 +22,12 @@ export default function Entry() {
 
       <EntrySettingsForm />
 
-      <Button clickHandler={() => gameDispatch({ type: "start-memorize" })}>
+      <Button
+        clickHandler={() => {
+          trackGameStarted({ settings: game.settings, source: "cta_button" })
+          gameDispatch({ type: "start-memorize" })
+        }}
+      >
         Start the game
       </Button>
     </article>

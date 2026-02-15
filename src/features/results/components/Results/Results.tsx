@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import {
   useGame,
   useGameDispatch,
   startNewGame,
 } from "@/providers/GameProvider"
+import { trackGameCompleted } from "@/utils/analytics"
 import { Button } from "@/components"
 import Summary from "../Summary/Summary"
 import CardsWithGuesses from "../CardsWithGuesses/CardsWithGuesses"
@@ -29,6 +30,14 @@ export default function Results() {
     },
     [[], []],
   )
+
+  useEffect(() => {
+    trackGameCompleted({
+      settings: game.settings,
+      correctCardsNum: correctCards.length,
+      totalCardsNum: game.pulledCards.length,
+    })
+  }, [correctCards.length, game.pulledCards.length, game.settings])
 
   return (
     <article className={styles.wrapper}>

@@ -1,6 +1,7 @@
 import React from "react"
 
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
+import { trackRecallStarted } from "@/utils/analytics"
 import Game from "@/models/game"
 import { Button, CardsGrid } from "@/components"
 import Timer from "../Timer/Timer"
@@ -34,7 +35,12 @@ export default function Remember() {
 
       <CardsToMemorize cards={game.pulledCards} />
 
-      <Button clickHandler={() => gameDispatch({ type: "start-guess" })}>
+      <Button
+        clickHandler={() => {
+          trackRecallStarted({ source: "manual", settings: game.settings })
+          gameDispatch({ type: "start-guess" })
+        }}
+      >
         Check your memory
       </Button>
     </article>

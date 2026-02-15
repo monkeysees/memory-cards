@@ -1,6 +1,7 @@
 import React from "react"
 
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
+import { trackGameStarted } from "@/utils/analytics"
 import { NumberInput, Checkbox, Select } from "@/components"
 import { normalizeCardsNum, normalizeTimerTime } from "./settings.utils"
 import styles from "./styles.module.scss"
@@ -11,6 +12,7 @@ export default function EntrySettingsForm() {
 
   function handleSubmission(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    trackGameStarted({ settings: game.settings, source: "form_submit" })
     gameDispatch({ type: "start-memorize" })
   }
 

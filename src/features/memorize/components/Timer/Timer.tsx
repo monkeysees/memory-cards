@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import { useGameDispatch } from "@/providers/GameProvider"
 import React, { useEffect, useRef, useState } from "react"
+import { trackEvent } from "@/utils/analytics"
 
 import {
   TIMEOUT_INTERVAL,
@@ -40,6 +41,7 @@ export default function Timer(props: Props) {
 
   useEffect(() => {
     if (secondsFinal <= 0) {
+      trackEvent("recall_started", { source: "timer_elapsed" })
       gameDispatch({ type: "start-guess" })
       return () => {}
     }
