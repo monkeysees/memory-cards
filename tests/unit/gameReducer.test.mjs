@@ -56,7 +56,6 @@ test("startNewGame is a no-op when entry already has a shuffled deck", () => {
 
   assert.deepEqual(actions, [])
 })
-
 test("initialGame defines a standard 52-card deck split across 4 suits", () => {
   assert.equal(initialGame.suits.length, 4)
   assert.equal(initialGame.faces.length, 52)
@@ -222,5 +221,26 @@ test("end-game scores unordered unsuited rounds by rank only", () => {
   assert.deepEqual(
     next.pulledCards.map((card) => card.isCorrectGuess),
     [true, true, false, false],
+  )
+})
+test("end-game in unordered unsuited mode does not over-count duplicate rank guesses", () => {
+  const game = createGame({
+    settings: {
+      ...initialGame.settings,
+      isOrdered: false,
+      isSuited: false,
+    },
+    pulledCards: [
+      { value: "C8", guess: "H8", isCorrectGuess: false },
+      { value: "DJ", guess: "S8", isCorrectGuess: false },
+      { value: "S4", guess: "C10", isCorrectGuess: false },
+    ],
+  })
+
+  const next = gameReducer(game, { type: "end-game" })
+
+  assert.deepEqual(
+    next.pulledCards.map((card) => card.isCorrectGuess),
+    [true, false, false],
   )
 })

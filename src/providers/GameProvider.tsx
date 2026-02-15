@@ -126,16 +126,10 @@ function gameReducer(game: Game, action: ReducerAction) {
             ? c.value === c.guess
             : c.value.slice(1) === (c.guess || "").slice(1),
         }))
-      } else {
+      } else if (game.settings.isSuited) {
         const correctFaces = game.pulledCards.reduce<Set<CardFace>>(
           (faces, { value }) => {
-            if (game.settings.isSuited) {
-              faces.add(value)
-            } else {
-              game.suits.forEach((s) =>
-                faces.add((s[0].toUpperCase() + value.slice(1)) as CardFace),
-              )
-            }
+            faces.add(value)
 
             return faces
           },
@@ -146,6 +140,33 @@ function gameReducer(game: Game, action: ReducerAction) {
           ...c,
           isCorrectGuess: !!c.guess && correctFaces.has(c.guess),
         }))
+      } else {
+        const rankCounts = game.pulledCards.reduce<Map<string, number>>(
+          (counts, { value }) => {
+            const rank = value.slice(1)
+            counts.set(rank, (counts.get(rank) || 0) + 1)
+
+            return counts
+          },
+          new Map(),
+        )
+
+        pulledCards = game.pulledCards.map((c) => {
+          const guessedRank = c.guess?.slice(1)
+
+          if (!guessedRank) {
+            return { ...c, isCorrectGuess: false }
+          }
+
+          const availableCount = rankCounts.get(guessedRank) || 0
+          const isCorrectGuess = availableCount > 0
+
+          if (isCorrectGuess) {
+            rankCounts.set(guessedRank, availableCount - 1)
+          }
+
+          return { ...c, isCorrectGuess }
+        })
       }
 
       return {
