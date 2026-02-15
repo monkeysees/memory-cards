@@ -1,6 +1,6 @@
-import { Card as CardType } from "@/models/card"
+import { Card as CardType, CardFace } from "@/models/card"
 
-export function cardFaceToAccessibleText(value: CardType) {
+export function cardFaceToAccessibleText(value: CardFace) {
   const suitName = {
     C: "clubs",
     D: "diamonds",
@@ -24,4 +24,12 @@ export function getCardAriaLabel(value: CardType | undefined) {
   }
 
   return `Select ${cardFaceToAccessibleText(value)}`
+}
+
+export function getCardImageAlt(value: CardType | undefined) {
+  if (!value || value === "back") {
+    return "Card back"
+  }
+
+  return cardFaceToAccessibleText(value)
 }

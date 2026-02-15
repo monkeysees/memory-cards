@@ -1,11 +1,8 @@
 import React, { createContext, ReactNode, useContext, useReducer } from "react"
-import lodash from "lodash"
 
 import { CardFace, Suit } from "@/models/card"
 import Game from "@/models/game"
 import { assertUnreachable, DeepPartial } from "@/utils/misc"
-
-const { cloneDeep, merge, shuffle } = lodash
 
 interface ShuffleCards {
   type: "new-game"
@@ -59,6 +56,19 @@ function clampCardsNum(value: unknown) {
   return Math.min(52, parsedValue)
 }
 
+function shuffleItems<T>(items: T[]) {
+  const shuffledItems = [...items]
+
+  for (let i = shuffledItems.length - 1; i > 0; i -= 1) {
+    const randomIndex = Math.floor(Math.random() * (i + 1))
+    const currentItem = shuffledItems[i]
+    shuffledItems[i] = shuffledItems[randomIndex]
+    shuffledItems[randomIndex] = currentItem
+  }
+
+  return shuffledItems
+}
+
 function gameReducer(game: Game, action: ReducerAction) {
   const actionType = action.type
   switch (actionType) {
@@ -82,7 +92,14 @@ function gameReducer(game: Game, action: ReducerAction) {
     }
 
     case "update-settings": {
-      const nextSettings = merge(cloneDeep(game.settings), action.settings)
+      const nextSettings: Game["settings"] = {
+        ...game.settings,
+        ...action.settings,
+        timer: {
+          ...game.settings.timer,
+          ...action.settings.timer,
+        },
+      }
 
       return {
         ...game,
@@ -313,7 +330,7 @@ function startNewGame(game: Game, gameDispatch: React.Dispatch<ReducerAction>) {
     return
   }
 
-  gameDispatch({ type: "new-game", shuffledFaces: shuffle(game.faces) })
+  gameDispatch({ type: "new-game", shuffledFaces: shuffleItems(game.faces) })
 }
 
 export { useGame, useGameDispatch, GameProvider, startNewGame }

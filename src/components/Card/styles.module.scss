@@ -1,4 +1,13 @@
 .card {
+  display: block;
+  overflow: hidden;
+
+  :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   &__small {
     width: 4rem;
     border-radius: 0.4rem;

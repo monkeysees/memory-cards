@@ -1,5 +1,4 @@
 import React from "react"
-import { partition } from "lodash"
 
 import {
   useGame,
@@ -15,9 +14,20 @@ export default function Results() {
   const game = useGame()
   const gameDispatch = useGameDispatch()
 
-  const [correctCards, incorrectCards] = partition(
-    game.pulledCards,
-    (c) => c.isCorrectGuess,
+  const [correctCards, incorrectCards] = game.pulledCards.reduce<
+    [typeof game.pulledCards, typeof game.pulledCards]
+  >(
+    (cards, card) => {
+      const [nextCorrectCards, nextIncorrectCards] = cards
+      if (card.isCorrectGuess) {
+        nextCorrectCards.push(card)
+      } else {
+        nextIncorrectCards.push(card)
+      }
+
+      return cards
+    },
+    [[], []],
   )
 
   return (
