@@ -43,6 +43,20 @@ test("startNewGame dispatches a shuffled full deck action", () => {
   assert.ok(actions[0].shuffledFaces.every((face) => initialGame.faces.includes(face)))
 })
 
+test("startNewGame is a no-op when entry already has a shuffled deck", () => {
+  const actions = []
+  const game = createGame({
+    stage: "entry",
+    shuffledFaces: ["H3", "D7"],
+  })
+
+  startNewGame(game, (action) => {
+    actions.push(action)
+  })
+
+  assert.deepEqual(actions, [])
+})
+
 test("initialGame defines a standard 52-card deck split across 4 suits", () => {
   assert.equal(initialGame.suits.length, 4)
   assert.equal(initialGame.faces.length, 52)

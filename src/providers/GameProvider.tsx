@@ -273,6 +273,10 @@ function useGameDispatch() {
 }
 
 function startNewGame(game: Game, gameDispatch: React.Dispatch<ReducerAction>) {
+  if (game.stage === "entry" && game.shuffledFaces.length) {
+    return
+  }
+
   gameDispatch({ type: "new-game", shuffledFaces: shuffle(game.faces) })
 }
 
