@@ -11,6 +11,16 @@
   row-gap: 1.2rem;
 }
 
+.progress {
+  font-size: 1.8rem;
+}
+
 .cardToGuess {
   outline: var(--color-primary) solid 0.3rem;
+}
+
+.helperText {
+  margin-top: -1.2rem;
+  font-size: 1.4rem;
+  opacity: 0.7;
 }

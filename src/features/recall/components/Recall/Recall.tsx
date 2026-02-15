@@ -5,6 +5,7 @@ import Game from "@/models/game"
 import { useGame, useGameDispatch } from "@/providers/GameProvider"
 import { Button, CardsGrid } from "@/components"
 import CardPicker, { Props as CardPickerProps } from "../CardPicker/CardPicker"
+import { countGuessedCards, isRecallComplete } from "./recall.utils"
 import styles from "./styles.module.scss"
 
 function CardsToRecall({
@@ -42,6 +43,9 @@ function CardsToRecall({
 export default function Recall() {
   const game = useGame()
   const gameDispatch = useGameDispatch()
+  const guessedCardsNum = countGuessedCards(game.pulledCards)
+  const totalCardsNum = game.pulledCards.length
+  const hasCompletedRecall = isRecallComplete(guessedCardsNum, totalCardsNum)
 
   const [cardPickerOptions, setCardPickerOptions] = useState<
     (Omit<CardPickerProps, "onClose"> & { isShown: true }) | { isShown: false }
@@ -88,6 +92,10 @@ export default function Recall() {
         }}
       />
 
+      <p className={styles.progress}>
+        Guessed cards: {guessedCardsNum}/{totalCardsNum}
+      </p>
+
       {cardPickerOptions.isShown ? (
         <CardPicker
           faceToGuess={cardPickerOptions.faceToGuess}
@@ -99,9 +107,16 @@ export default function Recall() {
         />
       ) : null}
 
-      <Button clickHandler={() => gameDispatch({ type: "end-game" })}>
+      <Button
+        isDisabled={!hasCompletedRecall}
+        clickHandler={() => gameDispatch({ type: "end-game" })}
+      >
         Check the cards
       </Button>
+
+      {!hasCompletedRecall ? (
+        <p className={styles.helperText}>Finish all guesses to check the cards.</p>
+      ) : null}
     </article>
   )
 }
